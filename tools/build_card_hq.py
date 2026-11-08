@@ -112,7 +112,7 @@ for line in e_lines:
     body.append(text(y, line, 33, "#d3d6d9", 400, 'fill-opacity="0.9"'))
     y += 46
 body.append(text(992, "מסחר יומי · חוזים עתידיים · מניות", 26, TEAL, 400, 'letter-spacing="2"'))
-body.append(text(1026, "תוכן ללימודי בלבד, לא ייעוץ השקעות", 21, "#9a9da2"))
+body.append(text(1026, "תוכן לימודי בלבד, לא ייעוץ השקעות", 21, "#9a9da2"))
 
 svg = (
     '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
