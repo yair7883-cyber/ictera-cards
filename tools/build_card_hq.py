@@ -1,10 +1,11 @@
 """ICTera card builder, high quality (2160x2160 PNG).
 
 Usage: python3 -I build_card_hq.py <logo_png> <spec_json> <out_png>
-spec_json: {"sentence": [l1, l2], "explain": [l1, l2, l3]}  (optional "style": "B" adds a faint candles backdrop)
+spec_json: {"sentence": [l1, l2], "explain": [l1, l2, l3]}  (optional "style": "A" removes the candles backdrop)
 
 Design = the approved ICTera look (Yair's sample): radial charcoal background with a soft
-centre glow, the original logo at 580px (in a 1080 canvas) fading into the background through a
+centre glow, a faint candlestick-chart backdrop (Japanese candles, rising to the right, behind
+the text; on by default), the original logo at 580px (in a 1080 canvas) fading into the background through a
 radial mask, chrome headline, teal underline with glow, soft-white explanation, teal tagline.
 The SVG is laid out on a 1080 canvas and rasterised at 2160. The logo is pre-upscaled with
 LANCZOS so it stays sharp at 2160.
@@ -120,7 +121,7 @@ e_lines = [html.escape(x) for x in e_lines]
 
 body = [
     '<rect width="1080" height="1080" fill="url(#bg)"/>',
-    candles() if str(SPEC.get("style", "A")).upper() == "B" else "",
+    candles() if str(SPEC.get("style", "B")).upper() != "A" else "",
     '<rect x="30" y="30" width="1020" height="1020" rx="36" fill="none" '
     'stroke="#ffffff" stroke-opacity="0.14" stroke-width="3"/>',
     f'<image xlink:href="data:image/png;base64,{LOGO_B64}" '
