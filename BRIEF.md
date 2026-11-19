@@ -4,7 +4,7 @@ Role: build carousels only and submit to Yair for approval. Never upload, schedu
 Video chat schedules TikTok/Facebook in Metricool after Yair's "נראה טוב". Yair uploads Instagram himself.
 Nothing goes out without Yair's approval of the final version.
 
-Cadence: Mondays and Thursdays 20:00 (Asia/Jerusalem). No posts from Friday 14:00 until Saturday night,
+Cadence: Mondays and Thursdays 10:00 (Asia/Jerusalem) for new carousels (already-scheduled ones stay at 20:00). No posts from Friday 14:00 until Saturday night,
 nor on Yom Kippur, Memorial Day, Holocaust Day, or 7 October.
 
 Per carousel: 5 JPG 1080x1350 (cover, 3 teaching, CTA), captions for IG, FB, TikTok + TikTok title, song suggestion.

@@ -9,7 +9,7 @@ for date, slug, slides, ig, fb, q, tt_t, tt_l, tags, song in C:
     (d / "spec.json").write_text(json.dumps({"theme":TEAL,"disclaimer":DISC,"slides":slides}, ensure_ascii=False, indent=1), encoding="utf-8")
     cta = 'תגיבו "סקירה" ונשלח לכם בפרטי את הסקירה והקהילה.'
     he = tags; en = "#ICT #NQ"
-    txt = (f"פרסום: {date} ב-20:00\n\n=== אינסטגרם ===\n{ig[0]}\n" + "\n".join(ig[1:]) + f"\n{q}\n{cta}\n{DISC}\n{he}\n{en}\n\n"
+    txt = (f"פרסום: {date} ב-10:00\n\n=== אינסטגרם ===\n{ig[0]}\n" + "\n".join(ig[1:]) + f"\n{q}\n{cta}\n{DISC}\n{he}\n{en}\n\n"
            f"=== פייסבוק ===\n{fb[0]}\n" + "\n".join(fb[1:]) + f"\n{q}\n{cta}\n{DISC}\n{he}\n{en}\n\n"
            f"=== טיקטוק ===\nכותרת: {tt_t}\nכיתוב: {tt_l} {cta.split(' ונשלח')[0]} #מסחריומי #נאסדק #ICT\n\n=== שיר (הצעה) ===\n{song}\n")
     (d / "captions.txt").write_text(txt, encoding="utf-8")
