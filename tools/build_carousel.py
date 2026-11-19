@@ -21,6 +21,7 @@ def em(s):  # **word** -> teal
     for i, p in enumerate(parts): out += f'<b class="t">{p}</b>' if i % 2 else p
     return out
 
+TH = SPEC.get("theme", {"a":"#2de0c4","rgb":"45,224,196","glow":"#0f4a50","b1":"#08262c","b2":"#04161b","b3":"#031014","ink":"#04161b","sub":"#d8eeee","mut":"#8fb4b4"})
 CSS = """
 *{margin:0;box-sizing:border-box}
 body{width:1080px;height:1350px;direction:rtl;font-family:'DejaVu Sans','Liberation Sans',sans-serif;color:#fff;
@@ -47,8 +48,10 @@ p{font-size:48px;line-height:1.45;color:#d8eeee}
 .bars{flex:1;display:flex;gap:10px}.bars span{flex:1;height:8px;border-radius:4px;background:rgba(255,255,255,.18)}.bars span.on{background:#2de0c4}
 .sw{font-size:32px;color:#2de0c4;font-weight:700}
 """
+for k,v in {"#2de0c4":"{a}","45,224,196":"{rgb}","#0f4a50":"{glow}","#08262c":"{b1}","#04161b":"{b2}","#031014":"{b3}","#d8eeee":"{sub}","#8fb4b4":"{mut}"}.items():
+    CSS=CSS.replace(k,v.format(**TH)) if False else CSS.replace(k,TH[v[1:-1]])
 CANDLES = '<svg class="candles" viewBox="0 0 360 300">' + "".join(
-    f'<line x1="{x}" y1="{y1}" x2="{x}" y2="{y2}" stroke="#2de0c4" stroke-width="3"/><rect x="{x-14}" y="{a}" width="28" height="{b-a}" fill="{"#2de0c4" if up else "#0f4a50"}" stroke="#2de0c4" stroke-width="2"/>'
+    f'<line x1="{x}" y1="{y1}" x2="{x}" y2="{y2}" stroke="{TH["a"]}" stroke-width="3"/><rect x="{x-14}" y="{a}" width="28" height="{b-a}" fill="{TH["a"] if up else TH["glow"]}" stroke="{TH["a"]}" stroke-width="2"/>'
     for x, y1, y2, a, b, up in [(30,150,290,190,260,0),(90,120,270,160,240,1),(150,100,240,130,210,1),(210,60,200,90,170,0),(270,40,170,60,140,1),(330,10,120,30,100,1)]) + "</svg>"
 
 def slide(i, n, body):
