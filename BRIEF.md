@@ -21,3 +21,11 @@ published topics), run plan/build_month.py (adjust month/dates), review the over
 present the sheet to Yair. Do not open a PR unless asked.
 Already covered topics: 1% risk, FVG, sweep, post-loss trade, 4 questions, CISD, killzone, liquidity, daily plan,
 journal, quarterly theory, recurring mistakes, new-year rules.
+
+## Update 2026-11-19 (Yair)
+- Publishing is now also done by this chat via Metricool, ONLY after Yair's explicit approval of the exact post plan
+  (network, time, media, caption). Instagram music is added by Yair in the app. Video chat still handles video content.
+- Already scheduled by the video chat (keep, do not duplicate): 23.11 FVG, 26.11 sweep, 30.11 post-loss, 3.12 four questions,
+  7.12 killzone. New carousels start 10.12.
+- Slot hour: Metricool benchmark says 10:00 and 18:00 beat 20:00. Test, then decide (see bots/3_improver.md).
+- Bots: bots/1_trend_scout.md, bots/2_qa_virality.md, bots/3_improver.md. Run tools/qa_check.py on every batch.
