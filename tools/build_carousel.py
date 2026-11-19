@@ -17,6 +17,8 @@ logo = Image.open(HERE / "logo.png").convert("RGB").resize((330, 330), Image.LAN
 b = io.BytesIO(); logo.save(b, "PNG"); LOGO = base64.b64encode(b.getvalue()).decode()
 
 def fmt(s):
+    import re
+    s = re.sub(r"([A-Za-z]+)([?:.,!])", "\\1\u200f\\2", s)
     parts = html.escape(s).split("**")
     s = "".join(f"<em>{p}</em>" if i % 2 else p for i, p in enumerate(parts))
     return s.replace("\n", "<br>")
