@@ -7,7 +7,10 @@ TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 git clone -q --depth 1 https://github.com/AgriciDaniel/claude-ads.git "$TMP/claude-ads"
 GIT_LFS_SKIP_SMUDGE=1 git clone -q --depth 1 --filter=blob:limit=2m https://github.com/heygen-com/hyperframes.git "$TMP/hyperframes"
+git clone -q --depth 1 https://github.com/vercel-labs/skills.git "$TMP/vercel-skills"
 bash "$ROOT/tools/install-claude-skills.sh" "$TMP" "$ROOT/.claude"
 echo "claude-ads  $(git -C "$TMP/claude-ads" rev-parse --short HEAD)"
 echo "hyperframes $(git -C "$TMP/hyperframes" rev-parse --short HEAD)"
+echo "skills      $(git -C "$TMP/vercel-skills" rev-parse --short HEAD)"
+echo "Read the diff of .claude/skills/find-skills before committing."
 echo "Update the commit column in .claude/THIRD_PARTY_SKILLS.md, then commit."

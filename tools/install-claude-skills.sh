@@ -53,5 +53,12 @@ for d in "$HF"/skills/*/; do
 done
 cp -p "$HF/LICENSE" "$SK/hyperframes/LICENSE"
 
+# --- vercel-labs/skills: find-skills (optional: only if that checkout is given) ---
+VS=$SRC/vercel-skills
+if [ -f "$VS/skills/find-skills/SKILL.md" ]; then
+  rm -rf "$SK/find-skills"
+  copy_glob "$SK/find-skills" "$VS/skills/find-skills/SKILL.md" "$VS/LICENSE"
+fi
+
 find "$SK" -name __pycache__ -type d -prune -exec rm -rf {} +
 echo "installed into $DEST"
