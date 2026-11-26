@@ -38,6 +38,21 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
 
+  # HTTPS in front of Chatwoot (free Let's Encrypt certificate, renewed automatically).
+  # Runs only when COMPOSE_PROFILES=https is set in .env (install.sh does this when given a domain).
+  caddy:
+    image: caddy:2-alpine
+    profiles: ['https']
+    restart: always
+    command: ['caddy', 'reverse-proxy', '--from', '${CHATWOOT_DOMAIN:-localhost}', '--to', 'rails:3000']
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - caddy_data:/data
+    depends_on:
+      - rails
+
   redis:
     image: redis:7-alpine
     restart: always
@@ -50,3 +65,4 @@ volumes:
   storage_data:
   postgres_data:
   redis_data:
+  caddy_data:

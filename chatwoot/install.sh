@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Installs Chatwoot with Docker on an Ubuntu/Debian server.
-# Usage:  ./install.sh [public-url]     e.g. ./install.sh https://chat.example.com
+#
+#   ./install.sh chat.example.com   public install with automatic HTTPS
+#                                   (point the domain's DNS to this server first)
+#   ./install.sh                    local only, on http://localhost:3000
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -18,9 +21,17 @@ if [ ! -f .env ]; then
   echo "Created .env with fresh secrets."
 fi
 
-if [ "${1:-}" != "" ]; then
-  sed -i "s|^FRONTEND_URL=.*|FRONTEND_URL=$1|" .env
-  case "$1" in https://*) sed -i "s|^FORCE_SSL=.*|FORCE_SSL=true|" .env ;; esac
+set_env() {  # set_env KEY VALUE — replace or append
+  if grep -q "^$1=" .env; then sed -i "s|^$1=.*|$1=$2|" .env; else echo "$1=$2" >> .env; fi
+}
+
+domain="${1:-}"
+domain="${domain#https://}"; domain="${domain#http://}"; domain="${domain%%/*}"
+if [ -n "$domain" ]; then
+  set_env CHATWOOT_DOMAIN "$domain"
+  set_env COMPOSE_PROFILES https
+  set_env FRONTEND_URL "https://$domain"
+  set_env FORCE_SSL true
 fi
 
 docker compose pull
@@ -30,5 +41,4 @@ docker compose run --rm rails bundle exec rails db:chatwoot_prepare
 docker compose up -d
 
 echo
-echo "Chatwoot is starting on port 3000 (local only)."
-echo "Open $(grep ^FRONTEND_URL= .env | cut -d= -f2-) and create the admin account."
+echo "Chatwoot is running. Open $(grep ^FRONTEND_URL= .env | cut -d= -f2-) and create the admin account."

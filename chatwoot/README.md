@@ -1,45 +1,42 @@
 # Chatwoot — תיבת פניות לקוחות (קוד פתוח, חינמי)
 
 Chatwoot מאחד במקום אחד את כל ההודעות מלקוחות: וואטסאפ, אינסטגרם, פייסבוק,
-מייל, טלגרם וצ'אט באתר. כמה נציגים יכולים לענות, יש תגיות, תשובות מוכנות,
-בוט, ודוחות. הגרסה שמותקנת כאן היא הגרסה החינמית בהתקנה עצמית (self-hosted).
+טיקטוק, מייל, טלגרם וצ'אט באתר. כמה נציגים יכולים לענות, יש תגיות, תשובות מוכנות,
+בוט, דוחות, וקמפיינים של וואטסאפ. הגרסה כאן היא הגרסה החינמית בהתקנה עצמית.
 
 ## התקנה על שרת (פעם אחת)
 
-צריך שרת לינוקס (Ubuntu) עם לפחות 4GB זיכרון, למשל Hetzner / DigitalOcean.
+צריך:
+1. שרת לינוקס (Ubuntu) עם לפחות 4GB זיכרון — למשל Hetzner CX22 (בערך 5€ לחודש).
+2. תת-דומיין (למשל `chat.ictera.co.il`) עם רשומת A שמפנה לכתובת ה-IP של השרת.
+
+בשרת:
 
 ```bash
 git clone https://github.com/yair7883-cyber/ictera-cards.git
 cd ictera-cards/chatwoot
-./install.sh https://chat.your-domain.com
+./install.sh chat.ictera.co.il
 ```
 
-הסקריפט מתקין Docker אם חסר, יוצר קובץ `.env` עם סיסמאות אקראיות,
-מכין את מסד הנתונים ומפעיל הכל. אחר כך נכנסים לכתובת ויוצרים חשבון מנהל.
+הסקריפט מתקין Docker אם חסר, יוצר `.env` עם סיסמאות אקראיות, מכין את מסד הנתונים,
+מפעיל הכל ומוציא תעודת HTTPS חינמית אוטומטית. בסוף נכנסים לכתובת ויוצרים חשבון מנהל.
 
-Chatwoot מאזין רק על `127.0.0.1:3000`. כדי לפתוח אותו לאינטרנט עם HTTPS
-שמים לפניו Caddy (הכי פשוט):
+את חיבור הוואטסאפ עושים אחר כך לפי [WHATSAPP.md](WHATSAPP.md).
 
-```bash
-sudo apt install -y caddy
-echo 'chat.your-domain.com {
-  reverse_proxy 127.0.0.1:3000
-}' | sudo tee /etc/caddy/Caddyfile
-sudo systemctl reload caddy
-```
-
-## פקודות שימושיות
+## פקודות שימושיות (מתוך התיקייה `chatwoot`)
 
 | מה | פקודה |
 |---|---|
 | מצב השירותים | `docker compose ps` |
 | לוגים | `docker compose logs -f rails` |
 | עצירה | `docker compose down` |
-| עדכון גרסה | לשנות את `v4.20.1` ב-`docker-compose.yaml`, ואז `docker compose pull && docker compose run --rm rails bundle exec rails db:chatwoot_prepare && docker compose up -d` |
+| הפעלה מחדש | `docker compose up -d` |
+| עדכון גרסה | לשנות את `v4.20.1` ב-`docker-compose.yaml`, ואז `./install.sh` |
 
 ## קבצים
 
-- `docker-compose.yaml` — מבוסס על הקובץ הרשמי של Chatwoot, עם גרסאות נעולות
+- `docker-compose.yaml` — מבוסס על הקובץ הרשמי של Chatwoot, גרסאות נעולות, ו-Caddy ל-HTTPS
 - `.env.template` — הגדרות (עברית כברירת מחדל, הרשמה פתוחה כבויה)
 - `install.sh` — התקנה בפקודה אחת
+- `WHATSAPP.md` — חיבור וואטסאפ ושליחת קמפיינים
 - `.env` — נוצר בשרת בלבד, לא נכנס ל-git (מכיל סיסמאות)
